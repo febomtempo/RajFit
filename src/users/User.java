@@ -5,27 +5,27 @@
 package users;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  *
  * @author Felipe
  */
-public class User implements Comparable<User>, Serializable{
-    private String id;
+public class User implements Serializable {
+
+    private int cont = 1;
+    private final int id;
     private String login;
     private String senha;
     private String tipo;
 
     public User(String login, String senha, String tipo) {
-        UUID uuid = UUID.randomUUID();
-        this.id = uuid.toString();
+        this.id = cont++;
         this.login = login;
         this.senha = senha;
         this.tipo = tipo;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -52,9 +52,5 @@ public class User implements Comparable<User>, Serializable{
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    
-    @Override
-    public int compareTo(User o) {
-        return this.id.compareTo(o.getId());
-    }
+
 }

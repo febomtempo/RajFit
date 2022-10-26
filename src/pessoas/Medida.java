@@ -13,8 +13,8 @@ import java.time.LocalDate;
  */
 public class Medida implements Serializable{
 
-    private static int cont = 1;
-    private int id;
+    private int cont = 1;
+    private final int id;
     private int altura;
     private float peso;
     private int bicepsDir;

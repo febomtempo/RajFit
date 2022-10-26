@@ -5,15 +5,15 @@
 package pessoas;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  *
  * @author Felipe
  */
-public abstract class Pessoa implements Serializable, Comparable<Pessoa> {
+public abstract class Pessoa implements Serializable {
 
-    protected String id;
+    protected int cont = 1;
+    protected int id;
     protected String cpf;
     protected String nomeCompleto;
     protected String dataNasc;
@@ -21,8 +21,7 @@ public abstract class Pessoa implements Serializable, Comparable<Pessoa> {
     protected String sexo;
 
     public Pessoa(String cpf, String nomeCompleto, String dataNasc, String telefone, String sexo) {
-        UUID uuid = UUID.randomUUID();
-        this.id = uuid.toString();
+        this.id = cont++;
         this.cpf = cpf;
         this.nomeCompleto = nomeCompleto;
         this.dataNasc = dataNasc;
@@ -30,7 +29,7 @@ public abstract class Pessoa implements Serializable, Comparable<Pessoa> {
         this.sexo = sexo;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -73,10 +72,4 @@ public abstract class Pessoa implements Serializable, Comparable<Pessoa> {
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
-
-    @Override
-    public int compareTo(Pessoa o) {
-        return this.id.compareTo(o.getId());
-    }
-
 }

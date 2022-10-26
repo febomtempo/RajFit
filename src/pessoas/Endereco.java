@@ -5,15 +5,15 @@
 package pessoas;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  *
  * @author Felipe
  */
-public class Endereco implements Comparable<Endereco>, Serializable {
+public class Endereco implements Serializable {
 
-    private String id;
+    private int cont = 1;
+    private final int id;
     private String cep;
     private String estado;
     private String cidade;
@@ -24,8 +24,7 @@ public class Endereco implements Comparable<Endereco>, Serializable {
     private Pessoa pessoa;
 
     public Endereco(String cep, String estado, String cidade, String rua, String numero, String bairro, String complemento, Pessoa pessoa) {
-        UUID uuid = UUID.randomUUID();
-        this.id = uuid.toString();
+        this.id = cont++;
         this.cep = cep;
         this.estado = estado;
         this.cidade = cidade;
@@ -36,7 +35,7 @@ public class Endereco implements Comparable<Endereco>, Serializable {
         this.pessoa = pessoa;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -102,11 +101,6 @@ public class Endereco implements Comparable<Endereco>, Serializable {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
-    }
-
-    @Override
-    public int compareTo(Endereco o) {
-        return this.id.compareTo(o.getId());
     }
 
 }
