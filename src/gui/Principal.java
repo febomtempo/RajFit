@@ -4,19 +4,31 @@
  */
 package gui;
 
+import exception.ErroDeGravacaoException;
+import exception.ErroDeLeituraException;
+import io.Carregador;
+import io.Gravador;
+import io.LeitorGravadorObjetos;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import vendas.Categoria;
+
 /**
  *
  * @author fabri
  */
 public class Principal extends javax.swing.JFrame {
-    
+    List <Categoria> categorias;
 
-    public Principal() {
+    public Principal(List <Categoria> categorias) {
+        this.categorias = categorias;
         initComponents();
         this.setResizable(false);
-        this.setExtendedState(MAXIMIZED_BOTH);
+        //this.setExtendedState(MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -182,15 +194,16 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        System.exit(0);
+        this.gravarDados();
+        System.exit(0);    
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       new ListagemPacotes().setVisible(true);
+        new ListagemPacotes().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        
+
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -202,9 +215,17 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        new ListagemCategorias().setVisible(true);
+        new ListagemCategorias(this.categorias).setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void gravarDados() {
+        try {
+            Gravador.gravarDados(new LeitorGravadorObjetos<List<Categoria>>(), this.categorias, "categorias.txt");
+            System.out.println("GRAVOU NO ARQUIVO");
+        } catch (ErroDeGravacaoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Categorias", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

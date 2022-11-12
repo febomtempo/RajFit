@@ -12,8 +12,8 @@ import java.io.Serializable;
  */
 public class Categoria implements Serializable{
 
-    private int cont = 1;
-    private final int id;
+    private static int cont = 1;
+    private int id;
     private String nome;
 
     public Categoria(String nome) {
@@ -31,6 +31,11 @@ public class Categoria implements Serializable{
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria{" + "id=" + id + ", nome=" + nome + '}';
     }
 
 }

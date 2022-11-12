@@ -4,19 +4,31 @@
  */
 package gui;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import operacoes.ListarCategorias;
+import vendas.Categoria;
+
 /**
  *
  * @author fabri
  */
 public class ListagemCategorias extends javax.swing.JFrame {
 
+    private List<Categoria> categorias;
+
     /**
      * Creates new form ListagemCategorias
      */
-    public ListagemCategorias() {
+    public ListagemCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        if (categorias != null) {
+            ListarCategorias.listar(this.categorias, jTable1);
+        }
+
     }
 
     /**
@@ -56,6 +68,11 @@ public class ListagemCategorias extends javax.swing.JFrame {
         });
 
         jButton2.setText("Remover");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Editar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -112,12 +129,19 @@ public class ListagemCategorias extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        new CadastroCategoria().setVisible(true);
+        new CadastroCategoria(this.categorias).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new CadastroCategoria().setVisible(true);
+        new CadastroCategoria(this.categorias).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

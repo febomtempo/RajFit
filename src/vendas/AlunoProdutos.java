@@ -15,7 +15,7 @@ import pessoas.Aluno;
  */
 public class AlunoProdutos {
 
-    private int cont = 1;
+    private static int cont = 1;
     private final int id;
     private LocalDate data;
     private float valorTotal;

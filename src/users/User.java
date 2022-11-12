@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 
-    private int cont = 1;
+    private static int cont = 1;
     private final int id;
     private String login;
     private String senha;

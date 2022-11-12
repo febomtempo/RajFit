@@ -13,7 +13,7 @@ import pessoas.Aluno;
  */
 public class Fatura {
 
-    private int cont = 1;
+    private static int cont = 1;
     private int id;
     private LocalDate data;
     private float valorFatura;

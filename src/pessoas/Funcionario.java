@@ -36,7 +36,7 @@ public abstract class Funcionario extends Pessoa {
     }
     
     protected float calcSalario(){
-        return salario;
+        return this.salario;
     }
 
 }

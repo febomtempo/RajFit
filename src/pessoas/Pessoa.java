@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public abstract class Pessoa implements Serializable {
 
-    protected int cont = 1;
+    protected static int cont = 1;
     protected int id;
     protected String cpf;
     protected String nomeCompleto;
