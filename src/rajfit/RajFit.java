@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import vendas.Categoria;
+import vendas.Pacote;
+import vendas.Produto;
 
 /**
  *
@@ -28,15 +30,25 @@ public class RajFit {
 
         try {
             List<Categoria> categorias = (List<Categoria>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Categoria>>(), "categorias.txt");
+            List<Produto> produtos = (List<Produto>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Produto>>(), "produtos.txt");
+            List<Pacote> pacotes = (List<Pacote>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Pacote>>(), "pacotes.txt");
             if (categorias == null) {
                 categorias = new ArrayList<Categoria>();
                 System.out.println("ARQUIVO NÃO EXISTE, NOVO OBJETO CRIADO!");
             }
-            new Principal(categorias).setVisible(true);
+            if (produtos == null) {
+                produtos = new ArrayList<Produto>();
+                System.out.println("ARQUIVO NÃO EXISTE, NOVO OBJETO CRIADO!");
+            }
+            
+            if (pacotes == null) {
+                pacotes = new ArrayList<Pacote>();
+                System.out.println("ARQUIVO NÃO EXISTE, NOVO OBJETO CRIADO!");
+            }
+            new Principal(categorias, produtos, pacotes).setVisible(true);
         } catch (ErroDeLeituraException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Categorias", JOptionPane.ERROR_MESSAGE);
         }
-
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {

@@ -7,24 +7,23 @@ package operacoes;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import vendas.Categoria;
+import vendas.Produto;
 
 /**
  *
  * @author Felipe
  */
-public class ListarCategorias {
-
-    public static void listar(List<Categoria> categorias, JTable tabela) {
+public class ListarProdutos {
+    public static void listar(List<Produto> produtos, JTable tabela) {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
 
-        for (Categoria categoria : categorias) {
+        for (Produto produto : produtos) {
 
-            Object[] row = {categoria.getNome()};
+            Object[] row = {produto.getCategoria().getNome(), produto.getNome(), produto.getValor()};
             modelo.addRow(row);
 
         }

@@ -97,10 +97,9 @@ public class CadastroCategoria extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         this.categorias.add(new Categoria(jTextNome.getText()));
-        
         this.dispose();
-        new ListagemCategorias(this.categorias).setVisible(true);
-        System.out.println(this.categorias.toString());
+        
+       
         
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 

@@ -14,7 +14,7 @@ import pessoas.Aluno;
 public class Fatura {
 
     private static int cont = 1;
-    private int id;
+    private final int id;
     private LocalDate data;
     private float valorFatura;
     private String statusPagamento;

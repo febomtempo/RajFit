@@ -13,16 +13,23 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import vendas.Categoria;
+import vendas.Pacote;
+import vendas.Produto;
 
 /**
  *
  * @author fabri
  */
 public class Principal extends javax.swing.JFrame {
-    List <Categoria> categorias;
 
-    public Principal(List <Categoria> categorias) {
+    List<Categoria> categorias;
+    List<Produto> produtos;
+    List <Pacote> pacotes;
+
+    public Principal(List<Categoria> categorias, List<Produto> produtos, List <Pacote> pacotes) {
         this.categorias = categorias;
+        this.produtos = produtos;
+        this.pacotes = pacotes;
         initComponents();
         this.setResizable(false);
         //this.setExtendedState(MAXIMIZED_BOTH);
@@ -53,6 +60,11 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RAJFIT");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/bg-academia.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -186,7 +198,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new ListagemProdutos().setVisible(true);
+        new ListagemProdutos(this.categorias, this.produtos).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -195,11 +207,11 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         this.gravarDados();
-        System.exit(0);    
+        System.exit(0);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new ListagemPacotes().setVisible(true);
+        new ListagemPacotes(this.pacotes).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
@@ -218,14 +230,23 @@ public class Principal extends javax.swing.JFrame {
         new ListagemCategorias(this.categorias).setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.gravarDados();
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
+
     private void gravarDados() {
         try {
             Gravador.gravarDados(new LeitorGravadorObjetos<List<Categoria>>(), this.categorias, "categorias.txt");
+            Gravador.gravarDados(new LeitorGravadorObjetos<List<Produto>>(), this.produtos, "produtos.txt");
+            Gravador.gravarDados(new LeitorGravadorObjetos<List<Produto>>(), this.pacotes, "pacotes.txt");
             System.out.println("GRAVOU NO ARQUIVO");
         } catch (ErroDeGravacaoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Categorias", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
