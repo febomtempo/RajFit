@@ -4,11 +4,13 @@
  */
 package atividades;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Felipe
  */
-public abstract class Exercicio {
+public abstract class Exercicio implements Serializable{
 
     protected int cont = 1;
     protected int id;

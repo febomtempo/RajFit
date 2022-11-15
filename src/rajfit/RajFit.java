@@ -4,6 +4,7 @@
  */
 package rajfit;
 
+import atividades.Exercicio;
 import exception.ErroDeLeituraException;
 import gui.Principal;
 import io.Carregador;
@@ -32,6 +33,7 @@ public class RajFit {
             List<Categoria> categorias = (List<Categoria>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Categoria>>(), "categorias.txt");
             List<Produto> produtos = (List<Produto>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Produto>>(), "produtos.txt");
             List<Pacote> pacotes = (List<Pacote>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Pacote>>(), "pacotes.txt");
+            List<Exercicio> exercicios = (List<Exercicio>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Exercicio>>(), "exercicios.txt");
             if (categorias == null) {
                 categorias = new ArrayList<Categoria>();
                 System.out.println("ARQUIVO NÃO EXISTE, NOVO OBJETO CRIADO!");
@@ -45,9 +47,13 @@ public class RajFit {
                 pacotes = new ArrayList<Pacote>();
                 System.out.println("ARQUIVO NÃO EXISTE, NOVO OBJETO CRIADO!");
             }
-            new Principal(categorias, produtos, pacotes).setVisible(true);
+            if (exercicios == null) {
+                exercicios = new ArrayList<Exercicio>();
+                System.out.println("ARQUIVO NÃO EXISTE, NOVO OBJETO CRIADO!");
+            }
+            new Principal(categorias, produtos, pacotes, exercicios).setVisible(true);
         } catch (ErroDeLeituraException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Categorias", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERRO AO CARREGAR ARQUIVOS!!!", JOptionPane.ERROR_MESSAGE);
         }
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

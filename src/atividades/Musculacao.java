@@ -10,21 +10,11 @@ package atividades;
  */
 public class Musculacao extends Exercicio {
 
-    private String tipo;
     private String aparelho;
 
-    public Musculacao(String nome, String tipo, String aparelho) {
+    public Musculacao(String nome, String aparelho) {
         super(nome);
-        this.tipo = tipo;
         this.aparelho = aparelho;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public String getAparelho() {

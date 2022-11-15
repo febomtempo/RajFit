@@ -4,19 +4,30 @@
  */
 package gui;
 
+import atividades.Exercicio;
+import java.util.List;
+import operacoes.ListarExercicios;
+
 /**
  *
  * @author fabri
  */
 public class ListagemExercicios extends javax.swing.JFrame {
+    
+    List <Exercicio> exercicios;
 
     /**
      * Creates new form ListagemExercicios
      */
-    public ListagemExercicios() {
+    public ListagemExercicios(List <Exercicio> exercicios) {
+        this.exercicios = exercicios;
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        
+        if(exercicios != null){
+            ListarExercicios.listar(exercicios, jTable1);
+        }
     }
 
     /**
@@ -31,10 +42,10 @@ public class ListagemExercicios extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonRetornar = new javax.swing.JButton();
+        jButtonRemover = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonNovo = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -52,26 +63,31 @@ public class ListagemExercicios extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton1.setText("Retornar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRetornar.setText("Retornar");
+        jButtonRetornar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonRetornarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Remover");
-
-        jButton3.setText("Editar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRemover.setText("Remover");
+        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonRemoverActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Novo");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEditar.setText("Editar");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+
+        jButtonNovo.setText("Novo");
+        jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovoActionPerformed(evt);
             }
         });
 
@@ -83,13 +99,13 @@ public class ListagemExercicios extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(jButtonNovo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(jButtonEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(jButtonRemover)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jButtonRetornar)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -97,10 +113,10 @@ public class ListagemExercicios extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
+                    .addComponent(jButtonRetornar)
+                    .addComponent(jButtonRemover)
+                    .addComponent(jButtonEditar)
+                    .addComponent(jButtonNovo)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -129,23 +145,27 @@ public class ListagemExercicios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        new CadastroExercicio().setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
+        new CadastroExercicio(this.exercicios).setVisible(true);
+    }//GEN-LAST:event_jButtonNovoActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new CadastroExercicio().setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        new CadastroExercicio(this.exercicios).setVisible(true);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetornarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonRetornarActionPerformed
+
+    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
+        this.exercicios.remove(jTable1.getSelectedRow());
+    }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonNovo;
+    private javax.swing.JButton jButtonRemover;
+    private javax.swing.JButton jButtonRetornar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

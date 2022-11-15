@@ -4,6 +4,7 @@
  */
 package gui;
 
+import atividades.Exercicio;
 import exception.ErroDeGravacaoException;
 import exception.ErroDeLeituraException;
 import io.Carregador;
@@ -25,11 +26,14 @@ public class Principal extends javax.swing.JFrame {
     List<Categoria> categorias;
     List<Produto> produtos;
     List <Pacote> pacotes;
+    List <Exercicio> exercicios;
 
-    public Principal(List<Categoria> categorias, List<Produto> produtos, List <Pacote> pacotes) {
+    public Principal(List<Categoria> categorias, List<Produto> produtos, List <Pacote> pacotes,
+            List <Exercicio> exercicios) {
         this.categorias = categorias;
         this.produtos = produtos;
         this.pacotes = pacotes;
+        this.exercicios = exercicios;
         initComponents();
         this.setResizable(false);
         //this.setExtendedState(MAXIMIZED_BOTH);
@@ -219,7 +223,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        new ListagemExercicios().setVisible(true);
+        new ListagemExercicios(this.exercicios).setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -239,10 +243,11 @@ public class Principal extends javax.swing.JFrame {
         try {
             Gravador.gravarDados(new LeitorGravadorObjetos<List<Categoria>>(), this.categorias, "categorias.txt");
             Gravador.gravarDados(new LeitorGravadorObjetos<List<Produto>>(), this.produtos, "produtos.txt");
-            Gravador.gravarDados(new LeitorGravadorObjetos<List<Produto>>(), this.pacotes, "pacotes.txt");
+            Gravador.gravarDados(new LeitorGravadorObjetos<List<Pacote>>(), this.pacotes, "pacotes.txt");
+            Gravador.gravarDados(new LeitorGravadorObjetos<List<Exercicio>>(), this.exercicios, "exercicios.txt");
             System.out.println("GRAVOU NO ARQUIVO");
         } catch (ErroDeGravacaoException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Categorias", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro ao gravar", JOptionPane.ERROR_MESSAGE);
         }
     }
 
