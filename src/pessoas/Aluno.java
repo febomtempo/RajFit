@@ -17,5 +17,13 @@ public class Aluno extends Pessoa{
         super(cpf, nomeCompleto, dataNasc, telefone, sexo);
         this.pacote = pacote;
     }
+
+    public Pacote getPacote() {
+        return pacote;
+    }
+
+    public void setPacote(Pacote pacote) {
+        this.pacote = pacote;
+    }
     
 }

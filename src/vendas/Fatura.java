@@ -6,8 +6,9 @@ package vendas;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
-import pessoas.Aluno;
+import pessoas.Pessoa;
 
 /**
  *
@@ -17,46 +18,27 @@ public class Fatura implements Comparable<Fatura>, Serializable {
 
     private String id;
     private LocalDate data;
-    private float valorFatura;
     private String statusPagamento;
-    private Aluno aluno;
-    private Pacote pacote;
-    private AlunoProdutos alunoProdutos;
+    private List<AlunoProdutos> alunoProdutos;
 
-    public Fatura(float valorFatura, String statusPagamento, Aluno aluno, Pacote pacote, AlunoProdutos alunoProdutos) {
+    public Fatura(String statusPagamento, List<AlunoProdutos> alunoProdutos) {
         UUID uuid = UUID.randomUUID();
         this.id = uuid.toString();
         this.data = LocalDate.now();
-        this.valorFatura = valorFatura;
         this.statusPagamento = statusPagamento;
-        this.aluno = aluno;
-        this.pacote = pacote;
         this.alunoProdutos = alunoProdutos;
-    }
-    
-    
-    public float somarTotal(){
-        return pacote.getValor() + alunoProdutos.getValorTotal();
     }
 
     public String getId() {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public LocalDate getData() {
         return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-
-    public float getValorFatura() {
-        return valorFatura;
-    }
-
-    public void setValorFatura(float valorFatura) {
-        this.valorFatura = valorFatura;
     }
 
     public String getStatusPagamento() {
@@ -67,28 +49,23 @@ public class Fatura implements Comparable<Fatura>, Serializable {
         this.statusPagamento = statusPagamento;
     }
 
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
-    }
-
-    public Pacote getPacote() {
-        return pacote;
-    }
-
-    public void setPacote(Pacote pacote) {
-        this.pacote = pacote;
-    }
-
-    public AlunoProdutos getAlunoProdutos() {
+    public List<AlunoProdutos> getAlunoProdutos() {
         return alunoProdutos;
     }
 
-    public void setAlunoProdutos(AlunoProdutos alunoProdutos) {
+    public void setAlunoProdutos(List<AlunoProdutos> alunoProdutos) {
         this.alunoProdutos = alunoProdutos;
+    }
+
+
+     public float totalFatura(Pessoa p) {
+        float total = 0;
+        for(AlunoProdutos aprodutos: this.alunoProdutos){
+            if(aprodutos.getPessoa().equals(p)){
+                total+= aprodutos.somarTotal();
+            }
+        }
+        return total;
     }
 
     @Override

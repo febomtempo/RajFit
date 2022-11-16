@@ -4,28 +4,27 @@
  */
 package operacoes;
 
-
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import pessoas.Aluno;
-import pessoas.Pessoa;
+import vendas.AlunoProdutos;
 
 /**
  *
  * @author Felipe
  */
-public class ListarAlunos {
-    public static void listar(List<Pessoa> pessoas, JTable tabela) {
+public class ListarAlunoProdutos {
+    public static void listar(List<AlunoProdutos> alunoProdutos, JTable tabela) {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
 
-        for (Pessoa pessoa : pessoas) {
-            if (pessoa instanceof Aluno) {
-                Object[] row = {pessoa.getNomeCompleto(), pessoa.getTelefone(), ((Aluno) pessoa).getPacote().getNome() };
+        for (AlunoProdutos ap : alunoProdutos) {
+            if (ap instanceof AlunoProdutos) {
+                Object[] row = {ap.getProduto().getNome(), ap.getQuantidade(),
+                    ap.getProduto().getValor(), ap.somarTotal() };
                 modelo.addRow(row);
             }
 

@@ -5,9 +5,14 @@
 package gui;
 
 import java.util.List;
+import operacoes.ListarAlunoProdutos;
 import pessoas.Aluno;
+import pessoas.Endereco;
+import pessoas.Medida;
 import pessoas.Pessoa;
+import vendas.AlunoProdutos;
 import vendas.Pacote;
+import vendas.Produto;
 
 /**
  *
@@ -19,25 +24,51 @@ public class FichaAluno extends javax.swing.JFrame {
     private List<Pessoa> pessoas;
     private List<Pacote> pacotes;
     private String tipo;
+    private Pessoa pessoa;
+    private List<Medida> medidas;
+    private List<Endereco> enderecos;
+    private List<Produto> produtos;
+    private List <AlunoProdutos> alunoProdutos;
 
     /**
      * Creates new form FichaAluno
      */
-    public FichaAluno(IAtualizarFrame listagem, List<Pessoa> pessoas, List<Pacote> pacotes, String tipo) {
+    public FichaAluno(IAtualizarFrame listagem, List<Pessoa> pessoas, List<Pacote> pacotes, String tipo,
+            Pessoa pessoa, List<Medida> medidas, List<Endereco> enderecos, List<Produto> produtos,
+            List <AlunoProdutos> alunoProdutos) {
         this.tipo = tipo;
         this.listagem = listagem;
         this.pessoas = pessoas;
         this.pacotes = pacotes;
+        this.pessoa = pessoa;
+        this.medidas = medidas;
+        this.enderecos = enderecos;
+        this.produtos = produtos;
+        this.alunoProdutos = alunoProdutos;
+
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.carregarPacotes();
+
+        if (this.pacotes != null) {
+            this.carregarPacotes();
+        }
+
+        if (this.produtos != null) {
+            this.carregarProdutos();
+        }
 
         if (tipo.equals("Novo")) {
             jTabbedPane.setEnabledAt(1, false);
             jTabbedPane.setEnabledAt(2, false);
             jTabbedPane.setEnabledAt(3, false);
+            jTabbedPane.setEnabledAt(4, false);
+        } else {
+            jTabbedPane.setEnabledAt(0, false);
+            jTabbedPane.setSelectedIndex(1);
         }
+        
+        ListarAlunoProdutos.listar(alunoProdutos, jTable1);
 
     }
 
@@ -116,6 +147,16 @@ public class FichaAluno extends javax.swing.JFrame {
         jButtonSalvarEndereco = new javax.swing.JButton();
         jTextCidade = new javax.swing.JTextField();
         jTextEstado = new javax.swing.JTextField();
+        jPanelProdutos = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jTextQtd = new javax.swing.JTextField();
+        jComboProduto = new javax.swing.JComboBox<>();
+        jButtonAddProduto = new javax.swing.JButton();
+        jButtonRetornarProduto = new javax.swing.JButton();
+        jButtonRemoverProduto = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("RAJFIT - Ficha do aluno");
@@ -258,6 +299,11 @@ public class FichaAluno extends javax.swing.JFrame {
         });
 
         jButtonSalvarMedidas.setText("Salvar");
+        jButtonSalvarMedidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarMedidasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -576,6 +622,98 @@ public class FichaAluno extends javax.swing.JFrame {
 
         jTabbedPane.addTab("Endereço", jPanelEndereco);
 
+        jLabel23.setText("Produto:");
+
+        jLabel24.setText("Quantidade:");
+
+        jComboProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButtonAddProduto.setText("Adicionar");
+        jButtonAddProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddProdutoActionPerformed(evt);
+            }
+        });
+
+        jButtonRetornarProduto.setText("Retornar");
+        jButtonRetornarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRetornarProdutoActionPerformed(evt);
+            }
+        });
+
+        jButtonRemoverProduto.setText("Remover");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Produto", "Quantidade", "Valor un.", "Total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanelProdutosLayout = new javax.swing.GroupLayout(jPanelProdutos);
+        jPanelProdutos.setLayout(jPanelProdutosLayout);
+        jPanelProdutosLayout.setHorizontalGroup(
+            jPanelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelProdutosLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
+            .addGroup(jPanelProdutosLayout.createSequentialGroup()
+                .addGroup(jPanelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelProdutosLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAddProduto)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonRemoverProduto)
+                        .addGap(14, 14, 14)
+                        .addComponent(jButtonRetornarProduto))
+                    .addGroup(jPanelProdutosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanelProdutosLayout.setVerticalGroup(
+            jPanelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelProdutosLayout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(jPanelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel24)
+                    .addComponent(jTextQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAddProduto)
+                    .addComponent(jButtonRetornarProduto)
+                    .addComponent(jButtonRemoverProduto))
+                .addContainerGap())
+        );
+
+        jTabbedPane.addTab("Produtos", jPanelProdutos);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -615,7 +753,19 @@ public class FichaAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRetornarEnderecoActionPerformed
 
     private void jButtonSalvarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarEnderecoActionPerformed
-        // TODO add your handling code here:
+        String cep = jTextCep.getText();
+        String estado = jTextEstado.getText();
+        String cidade = jTextCidade.getText();
+        String rua = jTextRua.getText();
+        String numero = jTextNumero.getText();
+        String bairro = jTextBairro.getText();
+        String complemento = jTextComplemento.getText();
+
+        Endereco endereco = new Endereco(cep, estado, cidade, rua, numero, bairro, complemento, pessoa);
+
+        this.enderecos.add(endereco);
+        this.listagem.atualizarFrame();
+        this.dispose();
     }//GEN-LAST:event_jButtonSalvarEnderecoActionPerformed
 
     private void jButtonSalvarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarDadosActionPerformed
@@ -629,13 +779,10 @@ public class FichaAluno extends javax.swing.JFrame {
         } else {
             sexo = jRadioMasculino.getText();
         }
-        Aluno aluno = new Aluno(cpf, nome, dataNasc, fone, sexo, pacotes.get(jComboPacotes.getSelectedIndex()));
-        String idAluno = aluno.getId();
+        this.pessoa = new Aluno(cpf, nome, dataNasc, fone, sexo, pacotes.get(jComboPacotes.getSelectedIndex()));
+        String idAluno = pessoa.getId();
         System.out.println(idAluno);
-        this.pessoas.add(aluno);
-        jTabbedPane.setEnabledAt(1, true);
-        jTabbedPane.setEnabledAt(2, true);
-        jTabbedPane.setEnabledAt(3, true);
+        this.pessoas.add(pessoa);
         this.listagem.atualizarFrame();
         this.dispose();
     }//GEN-LAST:event_jButtonSalvarDadosActionPerformed
@@ -644,25 +791,67 @@ public class FichaAluno extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonRetornarDadosActionPerformed
 
+    private void jButtonSalvarMedidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarMedidasActionPerformed
+        int altura = Integer.parseInt(jTextAltura.getText());
+        float peso = Float.parseFloat(jTextPeso.getText());
+        int bicepsDir = Integer.parseInt(jTextBicepsDir.getText());
+        int bicepsEsq = Integer.parseInt(jTextBicepsEsq.getText());
+        int coxaDir = Integer.parseInt(jTextCoxaDir.getText());
+        int coxaEsq = Integer.parseInt(jTextCoxaEsq.getText());
+        int peito = Integer.parseInt(jTextPeito.getText());
+        int ombro = Integer.parseInt(jTextOmbro.getText());
+        int quadril = Integer.parseInt(jTextQuadril.getText());
+
+        this.medidas.add(new Medida(altura, peso, bicepsDir, bicepsEsq, coxaDir, coxaEsq, peito, ombro, quadril, (Aluno) pessoa));
+        this.listagem.atualizarFrame();
+        this.dispose();
+    }//GEN-LAST:event_jButtonSalvarMedidasActionPerformed
+
+    private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
+        int quantidade = Integer.parseInt(jTextQtd.getText());
+        Produto produto = produtos.get(jComboProduto.getSelectedIndex());
+        
+        this.alunoProdutos.add(new AlunoProdutos(pessoa, produto, quantidade));
+        this.listagem.atualizarFrame();
+        this.dispose();
+    }//GEN-LAST:event_jButtonAddProdutoActionPerformed
+
+    private void jButtonRetornarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetornarProdutoActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButtonRetornarProdutoActionPerformed
+
     private void carregarPacotes() {
         this.jComboPacotes.removeAllItems();
         for (Pacote pacote : pacotes) {
             this.jComboPacotes.addItem(pacote.getNome());
         }
     }
+
+    private void carregarProdutos() {
+        this.jComboProduto.removeAllItems();
+        for (Produto produto : produtos) {
+            this.jComboProduto.addItem(produto.getNome());
+        }
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGroupSexo;
+    private javax.swing.JButton jButtonAddProduto;
     private javax.swing.JButton jButtonEditarTreino;
     private javax.swing.JButton jButtonNovoTreino;
+    private javax.swing.JButton jButtonRemoverProduto;
     private javax.swing.JButton jButtonRemoverTreino;
     private javax.swing.JButton jButtonRetornarDados;
     private javax.swing.JButton jButtonRetornarEndereco;
     private javax.swing.JButton jButtonRetornarMedidas;
+    private javax.swing.JButton jButtonRetornarProduto;
     private javax.swing.JButton jButtonRetornarTreino;
     private javax.swing.JButton jButtonSalvarDados;
     private javax.swing.JButton jButtonSalvarEndereco;
     private javax.swing.JButton jButtonSalvarMedidas;
     private javax.swing.JComboBox<String> jComboPacotes;
+    private javax.swing.JComboBox<String> jComboProduto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -678,6 +867,8 @@ public class FichaAluno extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -691,11 +882,14 @@ public class FichaAluno extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelDadosAluno;
     private javax.swing.JPanel jPanelEndereco;
     private javax.swing.JPanel jPanelMedidas;
+    private javax.swing.JPanel jPanelProdutos;
     private javax.swing.JPanel jPanelTreino;
     private javax.swing.JRadioButton jRadioFeminino;
     private javax.swing.JRadioButton jRadioMasculino;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextAltura;
     private javax.swing.JTextField jTextBairro;
@@ -715,6 +909,7 @@ public class FichaAluno extends javax.swing.JFrame {
     private javax.swing.JTextField jTextOmbro;
     private javax.swing.JTextField jTextPeito;
     private javax.swing.JTextField jTextPeso;
+    private javax.swing.JTextField jTextQtd;
     private javax.swing.JTextField jTextQuadril;
     private javax.swing.JTextField jTextRua;
     // End of variables declaration//GEN-END:variables

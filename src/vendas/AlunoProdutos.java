@@ -6,10 +6,10 @@ package vendas;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import pessoas.Aluno;
+import pessoas.Pessoa;
 
 /**
  *
@@ -19,27 +19,32 @@ public class AlunoProdutos implements Comparable<AlunoProdutos>, Serializable {
 
     private String id;
     private LocalDate data;
-    private float valorTotal;
-    private Aluno aluno;
-    private List<Produto> produtos = new ArrayList<>();
+    private Pessoa pessoa;
+    private Produto produto;
+    private int quantidade;
 
-    public AlunoProdutos(float valorTotal, Aluno aluno, ArrayList<Produto> produtos) {
+    public AlunoProdutos(Pessoa pessoa, Produto produto, int quantidade) {
         UUID uuid = UUID.randomUUID();
         this.id = uuid.toString();
         this.data = LocalDate.now();
-        this.valorTotal = valorTotal;
-        this.aluno = aluno;
-        this.produtos = produtos;
+        this.pessoa = pessoa;
+        this.produto = produto;
+        this.quantidade = quantidade;
     }
-    
-    public float somarTotal(){
+
+    public float somarTotal() {
         float total = 0;
-        for(Produto p: produtos){
-            total += p.getValor();
-        }
+        total += produto.getValor() * this.quantidade;
         return total;
     }
-    
+
+    public float faturaTotal(List<AlunoProdutos> alunoProdutos) {
+        float total = 0;
+        for (AlunoProdutos ap : alunoProdutos) {
+            total+= ap.somarTotal();
+        }
+        return total + ((Aluno) pessoa).getPacote().getValor();
+    }
 
     public String getId() {
         return id;
@@ -53,31 +58,31 @@ public class AlunoProdutos implements Comparable<AlunoProdutos>, Serializable {
         this.data = data;
     }
 
-    public float getValorTotal() {
-        return valorTotal;
+    public Pessoa getPessoa() {
+        return pessoa;
     }
 
-    public void setValorTotal(float valorTotal) {
-        this.valorTotal = valorTotal;
+    public void setPessoa(Aluno aluno) {
+        this.pessoa = pessoa;
     }
 
-    public Aluno getAluno() {
-        return aluno;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
-    
-     @Override
+
+    @Override
     public int compareTo(AlunoProdutos o) {
         return this.id.compareTo(o.getId());
     }

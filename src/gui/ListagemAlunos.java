@@ -5,24 +5,39 @@
 package gui;
 
 import java.util.List;
+import operacoes.ListarAlunoProdutos;
 import operacoes.ListarAlunos;
+import pessoas.Endereco;
+import pessoas.Medida;
 import pessoas.Pessoa;
+import vendas.AlunoProdutos;
 import vendas.Pacote;
+import vendas.Produto;
 
 /**
  *
  * @author fabri
  */
 public class ListagemAlunos extends javax.swing.JFrame implements IAtualizarFrame {
-    List <Pessoa> pessoas;
-    List <Pacote> pacotes;
+
+    private List<Pessoa> pessoas;
+    private List<Pacote> pacotes;
+    private List<Medida> medidas;
+    private List<Endereco> enderecos;
+    private List<Produto> produtos;
+    private List<AlunoProdutos> alunoProdutos;
 
     /**
      * Creates new form ListagemAlunos
      */
-    public ListagemAlunos(List <Pessoa> pessoas, List <Pacote> pacotes) {
+    public ListagemAlunos(List<Pessoa> pessoas, List<Pacote> pacotes, List<Medida> medidas, List<Endereco> enderecos,
+            List<Produto> produtos, List<AlunoProdutos> alunoProdutos) {
         this.pacotes = pacotes;
         this.pessoas = pessoas;
+        this.medidas = medidas;
+        this.enderecos = enderecos;
+        this.produtos = produtos;
+        this.alunoProdutos = alunoProdutos;
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -55,9 +70,17 @@ public class ListagemAlunos extends javax.swing.JFrame implements IAtualizarFram
 
             },
             new String [] {
-                "Nome", "Telefone"
+                "Nome", "Telefone", "Pacote"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -76,7 +99,7 @@ public class ListagemAlunos extends javax.swing.JFrame implements IAtualizarFram
             }
         });
 
-        jButtonEditAluno.setText("Editar");
+        jButtonEditAluno.setText("Outras Informações");
         jButtonEditAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEditAlunoActionPerformed(evt);
@@ -97,7 +120,7 @@ public class ListagemAlunos extends javax.swing.JFrame implements IAtualizarFram
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonNovoAluno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEditAluno)
@@ -149,11 +172,14 @@ public class ListagemAlunos extends javax.swing.JFrame implements IAtualizarFram
     }//GEN-LAST:event_jButtonRetornaAlunoActionPerformed
 
     private void jButtonNovoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoAlunoActionPerformed
-        new FichaAluno(this, this.pessoas, this.pacotes, "Novo").setVisible(true);
+        new FichaAluno(this, this.pessoas, this.pacotes, "Novo", null, this.medidas,
+                this.enderecos, this.produtos, this.alunoProdutos).setVisible(true);
     }//GEN-LAST:event_jButtonNovoAlunoActionPerformed
 
     private void jButtonEditAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditAlunoActionPerformed
-        new FichaAluno(this, this.pessoas, this.pacotes, "Editar").setVisible(true);
+        Pessoa pessoa = this.pessoas.get(jTable1.getSelectedRow());
+        new FichaAluno(this, this.pessoas, this.pacotes, "Outras Informações", pessoa, this.medidas,
+                this.enderecos, this.produtos, this.alunoProdutos).setVisible(true);
     }//GEN-LAST:event_jButtonEditAlunoActionPerformed
 
     private void jButtonRemoveAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveAlunoActionPerformed
@@ -175,5 +201,7 @@ public class ListagemAlunos extends javax.swing.JFrame implements IAtualizarFram
     @Override
     public void atualizarFrame() {
         ListarAlunos.listar(pessoas, jTable1);
+
     }
+
 }

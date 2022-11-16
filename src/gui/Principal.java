@@ -6,14 +6,16 @@ package gui;
 
 import atividades.Exercicio;
 import exception.ErroDeGravacaoException;
-import exception.ErroDeLeituraException;
-import io.Carregador;
+
 import io.Gravador;
 import io.LeitorGravadorObjetos;
-import java.util.ArrayList;
+
 import java.util.List;
 import javax.swing.JOptionPane;
+import pessoas.Endereco;
+import pessoas.Medida;
 import pessoas.Pessoa;
+import vendas.AlunoProdutos;
 import vendas.Categoria;
 import vendas.Pacote;
 import vendas.Produto;
@@ -26,18 +28,25 @@ public class Principal extends javax.swing.JFrame {
 
     List<Categoria> categorias;
     List<Produto> produtos;
-    List <Pacote> pacotes;
-    List <Exercicio> exercicios;
-    List <Pessoa> pessoas;
+    List<Pacote> pacotes;
+    List<Exercicio> exercicios;
+    List<Pessoa> pessoas;
+    List<Medida> medidas;
+    List<Endereco> enderecos;
+    List<AlunoProdutos> alunoProdutos;
 
-    public Principal(List<Categoria> categorias, List<Produto> produtos, List <Pacote> pacotes,
-            List <Exercicio> exercicios, List <Pessoa> pessoas) {
+    public Principal(List<Categoria> categorias, List<Produto> produtos, List<Pacote> pacotes,
+            List<Exercicio> exercicios, List<Pessoa> pessoas, List<Medida> medidas,
+            List<Endereco> enderecos, List<AlunoProdutos> alunoProdutos) {
         this.categorias = categorias;
         this.produtos = produtos;
         this.pacotes = pacotes;
         this.exercicios = exercicios;
         this.pessoas = pessoas;
-        
+        this.medidas = medidas;
+        this.enderecos = enderecos;
+        this.alunoProdutos = alunoProdutos;
+
         initComponents();
         this.setResizable(false);
         //this.setExtendedState(MAXIMIZED_BOTH);
@@ -220,7 +229,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new ListagemAlunos(this.pessoas, this.pacotes).setVisible(true);
+        new ListagemAlunos(this.pessoas, this.pacotes, this.medidas, this.enderecos,
+                this.produtos, this.alunoProdutos).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -241,7 +251,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        new ListagemFuncionarios().setVisible(true);
+        new ListagemFuncionarios(this.pessoas, this.enderecos).setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -260,6 +270,9 @@ public class Principal extends javax.swing.JFrame {
             Gravador.gravarDados(new LeitorGravadorObjetos<List<Pacote>>(), this.pacotes, "pacotes.txt");
             Gravador.gravarDados(new LeitorGravadorObjetos<List<Exercicio>>(), this.exercicios, "exercicios.txt");
             Gravador.gravarDados(new LeitorGravadorObjetos<List<Pessoa>>(), this.pessoas, "pessoas.txt");
+            Gravador.gravarDados(new LeitorGravadorObjetos<List<Medida>>(), this.medidas, "medidas.txt");
+            Gravador.gravarDados(new LeitorGravadorObjetos<List<Endereco>>(), this.enderecos, "enderecos.txt");
+            Gravador.gravarDados(new LeitorGravadorObjetos<List<AlunoProdutos>>(), this.alunoProdutos, "alunoProdutos.txt");
             System.out.println("GRAVOU NO ARQUIVO");
         } catch (ErroDeGravacaoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro ao gravar", JOptionPane.ERROR_MESSAGE);

@@ -10,12 +10,12 @@ package pessoas;
  */
 public class Secretaria extends Funcionario{
     
-    public Secretaria(String cpf, String nomeCompleto, String dataNasc, String telefone, String sexo, String cargo, float salario) {
-        super(cpf, nomeCompleto, dataNasc, telefone, sexo, cargo, salario);
+    public Secretaria(String cpf, String nomeCompleto, String dataNasc, String telefone, String sexo, String cargo) {
+        super(cpf, nomeCompleto, dataNasc, telefone, sexo, cargo);
     }
 
     @Override
-    protected float calcSalario() {
+    public float calcSalario() {
         return (float) (super.calcSalario() * 2.5);
     }
 

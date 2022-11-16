@@ -9,14 +9,14 @@ package pessoas;
  * @author Felipe
  */
 public abstract class Funcionario extends Pessoa {
-
+    protected final float SALARIO_BASE = 1000;
     protected String cargo;
     protected float salario;
 
-    public Funcionario(String cpf, String nomeCompleto, String dataNasc, String telefone, String sexo, String cargo, float salario) {
+    public Funcionario(String cpf, String nomeCompleto, String dataNasc, String telefone, String sexo, String cargo) {
         super(cpf, nomeCompleto, dataNasc, telefone, sexo);
         this.cargo = cargo;
-        this.salario = salario;
+        this.salario = SALARIO_BASE;
     }
 
     public String getCargo() {
@@ -30,12 +30,8 @@ public abstract class Funcionario extends Pessoa {
     public float getSalario() {
         return salario;
     }
-
-    public void setSalario(float salario) {
-        this.salario = salario;
-    }
     
-    protected float calcSalario(){
+    public float calcSalario(){
         return this.salario;
     }
 
