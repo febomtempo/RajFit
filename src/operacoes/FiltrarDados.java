@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import vendas.AlunoProdutos;
+import vendas.Fatura;
 
 /**
  *
@@ -15,7 +16,7 @@ import vendas.AlunoProdutos;
  */
 public class FiltrarDados {
 
-    public static void filtrarDados(String mes, String ano, List<AlunoProdutos> alunoProdutos, JTable tabela) {
+    public static void filtrarDados(String mes, String ano, List<Fatura> faturas, JTable tabela) {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         switch (mes) {
             case "Janeiro" ->
@@ -47,11 +48,11 @@ public class FiltrarDados {
             modelo.removeRow(0);
         }
 
-        for (AlunoProdutos fatura : alunoProdutos) {
+        for (Fatura fatura : faturas) {
             if (fatura.getData().getMonthValue() == Integer.parseInt(mes)
                     && fatura.getData().getYear() == Integer.parseInt(ano)) {
-               
-                Object[] row = {fatura.getPessoa().getNomeCompleto(), fatura.faturaTotal(alunoProdutos)};
+               // FAZER AINDA, Classe Fatura é necessária?
+                Object[] row = {};
                 modelo.addRow(row);
 
             }
