@@ -5,7 +5,6 @@
 package gui;
 
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 import operacoes.ListarCategorias;
 import vendas.Categoria;
 
@@ -13,7 +12,7 @@ import vendas.Categoria;
  *
  * @author fabri
  */
-public class ListagemCategorias extends javax.swing.JFrame {
+public class ListagemCategorias extends javax.swing.JFrame implements IAtualizarFrame {
 
     private List<Categoria> categorias;
 
@@ -27,6 +26,7 @@ public class ListagemCategorias extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         if (categorias != null) {
             ListarCategorias.listar(this.categorias, jTable1);
+             
         }
 
     }
@@ -129,18 +129,19 @@ public class ListagemCategorias extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRetornarActionPerformed
 
     private void jButtonNovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaActionPerformed
-        new CadastroCategoria(this.categorias).setVisible(true);
-        this.dispose();
+        new CadastroCategoria(this, this.categorias).setVisible(true);
+        
     }//GEN-LAST:event_jButtonNovaActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        new CadastroCategoria(this.categorias).setVisible(true);
-        this.dispose();
+        new CadastroCategoria(this, this.categorias).setVisible(true);
+        
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
         this.categorias.remove(jTable1.getSelectedRow());
-        this.dispose();
+        this.atualizarFrame();
+        
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -151,4 +152,9 @@ public class ListagemCategorias extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void atualizarFrame() {
+        ListarCategorias.listar(categorias, jTable1);
+    }
 }

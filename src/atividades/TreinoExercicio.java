@@ -4,31 +4,34 @@
  */
 package atividades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  *
  * @author Felipe
  */
-public class TreinoExercicio {
+public class TreinoExercicio implements Comparable<TreinoExercicio>, Serializable {
 
-    private int cont = 1;
-    private final int id;
+    
+    private String id;
     private int repeticoes;
     private int series;
     private Treino treino;
     private List<Exercicio> exercicios = new ArrayList<>();
 
     public TreinoExercicio(int id, int repeticoes, int series, Treino treino, ArrayList<Exercicio> exercicios) {
-        this.id = cont++;
+        UUID uuid = UUID.randomUUID();
+        this.id = uuid.toString();
         this.repeticoes = repeticoes;
         this.series = series;
         this.treino = treino;
         this.exercicios = exercicios;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -64,4 +67,8 @@ public class TreinoExercicio {
         this.exercicios = exercicios;
     }
 
+    @Override
+    public int compareTo(TreinoExercicio o) {
+        return this.id.compareTo(o.getId());
+    }
 }

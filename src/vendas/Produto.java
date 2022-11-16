@@ -5,27 +5,29 @@
 package vendas;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  *
  * @author Felipe
  */
-public class Produto implements Serializable{
+public class Produto implements Comparable<Produto>,  Serializable{
 
-    private static int cont = 1;
-    private final int id;
+ 
+    private String id;
     private String nome;
     private float valor;
     private Categoria categoria;
 
     public Produto(String nome, float valor, Categoria categoria) {
-        this.id = cont++;
+        UUID uuid = UUID.randomUUID();
+        this.id = uuid.toString();
         this.nome = nome;
         this.valor = valor;
         this.categoria = categoria;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -51,6 +53,11 @@ public class Produto implements Serializable{
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+    
+     @Override
+    public int compareTo(Produto o) {
+        return this.id.compareTo(o.getId());
     }
 
 }

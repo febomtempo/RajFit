@@ -4,26 +4,28 @@
  */
 package vendas;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import pessoas.Aluno;
 
 /**
  *
  * @author Felipe
  */
-public class AlunoProdutos {
+public class AlunoProdutos implements Comparable<AlunoProdutos>, Serializable {
 
-    private static int cont = 1;
-    private final int id;
+    private String id;
     private LocalDate data;
     private float valorTotal;
     private Aluno aluno;
     private List<Produto> produtos = new ArrayList<>();
 
     public AlunoProdutos(float valorTotal, Aluno aluno, ArrayList<Produto> produtos) {
-        this.id = cont++;
+        UUID uuid = UUID.randomUUID();
+        this.id = uuid.toString();
         this.data = LocalDate.now();
         this.valorTotal = valorTotal;
         this.aluno = aluno;
@@ -39,7 +41,7 @@ public class AlunoProdutos {
     }
     
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -73,6 +75,11 @@ public class AlunoProdutos {
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+    }
+    
+     @Override
+    public int compareTo(AlunoProdutos o) {
+        return this.id.compareTo(o.getId());
     }
 
 }

@@ -13,7 +13,7 @@ import vendas.Produto;
  *
  * @author fabri
  */
-public class ListagemProdutos extends javax.swing.JFrame {
+public class ListagemProdutos extends javax.swing.JFrame implements IAtualizarFrame{
 
      private List <Produto> produtos;
      private List <Categoria> categorias;
@@ -152,18 +152,18 @@ public class ListagemProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRetornarActionPerformed
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
-        new CadastroProdutos(this.categorias, this.produtos).setVisible(true);
-        this.dispose();
+        new CadastroProdutos(this, this.categorias, this.produtos).setVisible(true);
+        
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        new CadastroProdutos(this.categorias, this.produtos).setVisible(true);
-        this.dispose();
+        new CadastroProdutos(this, this.categorias, this.produtos).setVisible(true);
+       
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
         this.produtos.remove(jTable1.getSelectedRow());
-        this.dispose();
+        this.atualizarFrame();
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -176,4 +176,9 @@ public class ListagemProdutos extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void atualizarFrame() {
+        ListarProdutos.listar(produtos, jTable1);
+    }
 }

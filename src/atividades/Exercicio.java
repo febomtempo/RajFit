@@ -5,23 +5,25 @@
 package atividades;
 
 import java.io.Serializable;
+import java.util.UUID;
+import pessoas.Pessoa;
 
 /**
  *
  * @author Felipe
  */
-public abstract class Exercicio implements Serializable{
+public abstract class Exercicio implements Comparable <Exercicio>, Serializable{
 
-    protected int cont = 1;
-    protected int id;
+    protected String id;
     protected String nome;
 
     public Exercicio(String nome) {
-        this.id = cont++;
+         UUID uuid = UUID.randomUUID();
+        this.id = uuid.toString();
         this.nome = nome;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -33,4 +35,8 @@ public abstract class Exercicio implements Serializable{
         this.nome = nome;
     }
 
+    @Override
+    public int compareTo(Exercicio o) {
+        return this.id.compareTo(o.getId());
+    }
 }

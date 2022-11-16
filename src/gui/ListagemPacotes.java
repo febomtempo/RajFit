@@ -12,7 +12,7 @@ import vendas.Pacote;
  *
  * @author fabri
  */
-public class ListagemPacotes extends javax.swing.JFrame {
+public class ListagemPacotes extends javax.swing.JFrame implements IAtualizarFrame {
     List <Pacote> pacotes;
     /**
      * Creates new form ListagemPacotes
@@ -83,6 +83,11 @@ public class ListagemPacotes extends javax.swing.JFrame {
         });
 
         jButtonRemover.setText("Remover");
+        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoverActionPerformed(evt);
+            }
+        });
 
         jButtonEditar.setText("Editar");
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -153,18 +158,23 @@ public class ListagemPacotes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
-        new CadastroPacote(this.pacotes).setVisible(true);
-        this.dispose();
+        new CadastroPacote(this, this.pacotes).setVisible(true);
+    
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        new CadastroPacote(this.pacotes).setVisible(true);
-        this.dispose();
+        new CadastroPacote(this,this.pacotes).setVisible(true);
+       
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetornarActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonRetornarActionPerformed
+
+    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
+        this.pacotes.remove(this.jTable1.getSelectedRow());
+        this.atualizarFrame();
+    }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEditar;
@@ -176,4 +186,9 @@ public class ListagemPacotes extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void atualizarFrame() {
+        ListarPacotes.listar(pacotes, jTable1);
+    }
 }

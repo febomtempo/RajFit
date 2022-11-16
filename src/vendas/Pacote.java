@@ -5,27 +5,28 @@
 package vendas;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  *
  * @author Felipe
  */
-public class Pacote implements Serializable {
+public class Pacote implements Comparable<Pacote>, Serializable {
 
-    private static int cont = 1;
-    private final int id;
+    private String id;
     private String nome;
     private String descricao;
     private float valor;
 
     public Pacote(String nome, String descricao, float valor) {
-        this.id = cont++;
+        UUID uuid = UUID.randomUUID();
+        this.id = uuid.toString();
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -51,6 +52,11 @@ public class Pacote implements Serializable {
 
     public void setValor(float valor) {
         this.valor = valor;
+    }
+    
+     @Override
+    public int compareTo(Pacote o) {
+        return this.id.compareTo(o.getId());
     }
 
 }

@@ -4,17 +4,18 @@
  */
 package vendas;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.UUID;
 import pessoas.Aluno;
 
 /**
  *
  * @author Felipe
  */
-public class Fatura {
+public class Fatura implements Comparable<Fatura>, Serializable {
 
-    private static int cont = 1;
-    private final int id;
+    private String id;
     private LocalDate data;
     private float valorFatura;
     private String statusPagamento;
@@ -23,7 +24,8 @@ public class Fatura {
     private AlunoProdutos alunoProdutos;
 
     public Fatura(float valorFatura, String statusPagamento, Aluno aluno, Pacote pacote, AlunoProdutos alunoProdutos) {
-        this.id = cont++;
+        UUID uuid = UUID.randomUUID();
+        this.id = uuid.toString();
         this.data = LocalDate.now();
         this.valorFatura = valorFatura;
         this.statusPagamento = statusPagamento;
@@ -37,7 +39,7 @@ public class Fatura {
         return pacote.getValor() + alunoProdutos.getValorTotal();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -89,4 +91,8 @@ public class Fatura {
         this.alunoProdutos = alunoProdutos;
     }
 
+    @Override
+    public int compareTo(Fatura o) {
+        return this.id.compareTo(o.getId());
+    }
 }

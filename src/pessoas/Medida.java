@@ -6,15 +6,16 @@ package pessoas;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.UUID;
 
 /**
  *
  * @author Felipe
  */
-public class Medida implements Serializable{
+public class Medida implements Comparable <Medida>, Serializable{
 
-    private static int cont = 1;
-    private final int id;
+    
+    private String id;
     private int altura;
     private float peso;
     private int bicepsDir;
@@ -28,7 +29,8 @@ public class Medida implements Serializable{
     private Aluno aluno;
 
     public Medida(int altura, float peso, int bicepsDir, int bicepsEsq, int coxaDir, int coxaEsq, int peito, int ombro, int quadril, Aluno aluno) {
-        this.id = cont++;
+        UUID uuid = UUID.randomUUID();
+        this.id = uuid.toString();
         this.altura = altura;
         this.peso = peso;
         this.bicepsDir = bicepsDir;
@@ -42,7 +44,7 @@ public class Medida implements Serializable{
         this.aluno = aluno;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -132,6 +134,11 @@ public class Medida implements Serializable{
 
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
+    }
+    
+    @Override
+    public int compareTo(Medida o) {
+        return this.id.compareTo(o.getId());
     }
 
 }

@@ -4,43 +4,32 @@
  */
 package atividades;
 
+import java.io.Serializable;
+import java.util.UUID;
 import pessoas.Aluno;
-import pessoas.Instrutor;
 
 /**
  *
  * @author Felipe
  */
-public class Treino {
-    private int cont = 1;
-    private int id;
+public class Treino implements Comparable<Treino>, Serializable {
+
+    private String id;
     private String nome;
     private String dia;
     private Aluno aluno;
-    private Instrutor instrutor;
 
-    public Treino(int id, String nome, String dia, Aluno aluno, Instrutor instrutor) {
-        this.id = id;
+    public Treino(int id, String nome, String dia, Aluno aluno) {
+        UUID uuid = UUID.randomUUID();
+        this.id = uuid.toString();
         this.nome = nome;
         this.dia = dia;
         this.aluno = aluno;
-        this.instrutor = instrutor;
+
     }
 
-    public int getCont() {
-        return cont;
-    }
-
-    public void setCont(int cont) {
-        this.cont = cont;
-    }
-
-    public int getId() {
+    public String getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -67,13 +56,8 @@ public class Treino {
         this.aluno = aluno;
     }
 
-    public Instrutor getInstrutor() {
-        return instrutor;
+    @Override
+    public int compareTo(Treino o) {
+        return this.id.compareTo(o.getId());
     }
-
-    public void setInstrutor(Instrutor instrutor) {
-        this.instrutor = instrutor;
-    }
-    
-    
 }

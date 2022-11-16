@@ -13,6 +13,7 @@ import io.LeitorGravadorObjetos;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import pessoas.Pessoa;
 import vendas.Categoria;
 import vendas.Pacote;
 import vendas.Produto;
@@ -27,13 +28,16 @@ public class Principal extends javax.swing.JFrame {
     List<Produto> produtos;
     List <Pacote> pacotes;
     List <Exercicio> exercicios;
+    List <Pessoa> pessoas;
 
     public Principal(List<Categoria> categorias, List<Produto> produtos, List <Pacote> pacotes,
-            List <Exercicio> exercicios) {
+            List <Exercicio> exercicios, List <Pessoa> pessoas) {
         this.categorias = categorias;
         this.produtos = produtos;
         this.pacotes = pacotes;
         this.exercicios = exercicios;
+        this.pessoas = pessoas;
+        
         initComponents();
         this.setResizable(false);
         //this.setExtendedState(MAXIMIZED_BOTH);
@@ -56,6 +60,7 @@ public class Principal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButtonConta = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -118,6 +123,8 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jButtonConta.setText("Conta");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -129,6 +136,8 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonConta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -137,12 +146,17 @@ public class Principal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtonConta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jMenu1.setText("Outros");
@@ -206,7 +220,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new ListagemAlunos().setVisible(true);
+        new ListagemAlunos(this.pessoas, this.pacotes).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -245,6 +259,7 @@ public class Principal extends javax.swing.JFrame {
             Gravador.gravarDados(new LeitorGravadorObjetos<List<Produto>>(), this.produtos, "produtos.txt");
             Gravador.gravarDados(new LeitorGravadorObjetos<List<Pacote>>(), this.pacotes, "pacotes.txt");
             Gravador.gravarDados(new LeitorGravadorObjetos<List<Exercicio>>(), this.exercicios, "exercicios.txt");
+            Gravador.gravarDados(new LeitorGravadorObjetos<List<Pessoa>>(), this.pessoas, "pessoas.txt");
             System.out.println("GRAVOU NO ARQUIVO");
         } catch (ErroDeGravacaoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro ao gravar", JOptionPane.ERROR_MESSAGE);
@@ -257,6 +272,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButtonConta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;

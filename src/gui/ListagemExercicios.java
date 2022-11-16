@@ -12,7 +12,7 @@ import operacoes.ListarExercicios;
  *
  * @author fabri
  */
-public class ListagemExercicios extends javax.swing.JFrame {
+public class ListagemExercicios extends javax.swing.JFrame implements IAtualizarFrame{
     
     List <Exercicio> exercicios;
 
@@ -146,11 +146,11 @@ public class ListagemExercicios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
-        new CadastroExercicio(this.exercicios).setVisible(true);
+        new CadastroExercicio(this, this.exercicios).setVisible(true);
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        new CadastroExercicio(this.exercicios).setVisible(true);
+        new CadastroExercicio(this, this.exercicios).setVisible(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetornarActionPerformed
@@ -159,6 +159,7 @@ public class ListagemExercicios extends javax.swing.JFrame {
 
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
         this.exercicios.remove(jTable1.getSelectedRow());
+        this.atualizarFrame();
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -171,4 +172,9 @@ public class ListagemExercicios extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void atualizarFrame() {
+        ListarExercicios.listar(exercicios, jTable1);
+    }
 }

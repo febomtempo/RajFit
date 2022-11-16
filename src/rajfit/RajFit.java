@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import pessoas.Pessoa;
 import vendas.Categoria;
 import vendas.Pacote;
 import vendas.Produto;
@@ -34,6 +35,7 @@ public class RajFit {
             List<Produto> produtos = (List<Produto>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Produto>>(), "produtos.txt");
             List<Pacote> pacotes = (List<Pacote>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Pacote>>(), "pacotes.txt");
             List<Exercicio> exercicios = (List<Exercicio>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Exercicio>>(), "exercicios.txt");
+            List<Pessoa> pessoas = (List<Pessoa>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Pessoa>>(), "pessoas.txt");
             if (categorias == null) {
                 categorias = new ArrayList<Categoria>();
                 System.out.println("ARQUIVO NÃO EXISTE, NOVO OBJETO CRIADO!");
@@ -51,7 +53,11 @@ public class RajFit {
                 exercicios = new ArrayList<Exercicio>();
                 System.out.println("ARQUIVO NÃO EXISTE, NOVO OBJETO CRIADO!");
             }
-            new Principal(categorias, produtos, pacotes, exercicios).setVisible(true);
+            if (pessoas == null) {
+                pessoas = new ArrayList<Pessoa>();
+                System.out.println("ARQUIVO NÃO EXISTE, NOVO OBJETO CRIADO!");
+            }
+            new Principal(categorias, produtos, pacotes, exercicios, pessoas).setVisible(true);
         } catch (ErroDeLeituraException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERRO AO CARREGAR ARQUIVOS!!!", JOptionPane.ERROR_MESSAGE);
         }

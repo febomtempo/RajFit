@@ -4,7 +4,6 @@
  */
 package gui;
 
-import java.util.ArrayList;
 import java.util.List;
 import vendas.Categoria;
 
@@ -13,11 +12,13 @@ import vendas.Categoria;
  * @author fabri
  */
 public class CadastroCategoria extends javax.swing.JFrame {
+    private IAtualizarFrame listagem;
     List <Categoria> categorias;
     /**
      * Creates new form CadastroCategoria
      */
-    public CadastroCategoria(List<Categoria> categorias) {
+    public CadastroCategoria(IAtualizarFrame listagem, List<Categoria> categorias) {
+        this.listagem = listagem;
         this.categorias = categorias;
         initComponents();
         this.setResizable(false);
@@ -97,6 +98,7 @@ public class CadastroCategoria extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         this.categorias.add(new Categoria(jTextNome.getText()));
+        this.listagem.atualizarFrame();
         this.dispose();
         
        

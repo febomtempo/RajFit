@@ -14,13 +14,14 @@ import java.util.List;
  * @author fabri
  */
 public class CadastroExercicio extends javax.swing.JFrame {
-
+    private IAtualizarFrame listagem;
     List<Exercicio> exercicios;
 
     /**
      * Creates new form CadastroExercicio
      */
-    public CadastroExercicio(List<Exercicio> exercicios) {
+    public CadastroExercicio(IAtualizarFrame listagem, List<Exercicio> exercicios) {
+        this.listagem = listagem;
         this.exercicios = exercicios;
         initComponents();
         this.setResizable(false);
@@ -178,7 +179,7 @@ public class CadastroExercicio extends javax.swing.JFrame {
         } else {
             this.exercicios.add(new Aerobico(nome));
         }
-
+        this.listagem.atualizarFrame();
         this.dispose();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 

@@ -13,14 +13,15 @@ import vendas.Produto;
  * @author fabri
  */
 public class CadastroProdutos extends javax.swing.JFrame {
-
+    private IAtualizarFrame listagem;
     private List<Produto> produtos;
     private List<Categoria> categorias;
 
     /**
      * Creates new form CadastroProdutos
      */
-    public CadastroProdutos(List<Categoria> categorias, List<Produto> produtos) {
+    public CadastroProdutos(IAtualizarFrame listagem, List<Categoria> categorias, List<Produto> produtos) {
+        this.listagem = listagem;
         this.categorias = categorias;
         this.produtos = produtos;
         initComponents();
@@ -133,6 +134,7 @@ public class CadastroProdutos extends javax.swing.JFrame {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         this.produtos.add(new Produto(jTextNome.getText(), Float.parseFloat(jTextValor.getText()), 
                 categorias.get(jComboCategoria.getSelectedIndex())));
+        this.listagem.atualizarFrame();
         this.dispose();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 

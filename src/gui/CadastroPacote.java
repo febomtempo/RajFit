@@ -12,12 +12,15 @@ import vendas.Pacote;
  * @author fabri
  */
 public class CadastroPacote extends javax.swing.JFrame {
-    List <Pacote> pacotes;
+
+    private IAtualizarFrame listagem;
+    List<Pacote> pacotes;
 
     /**
      * Creates new form CadastroPacote
      */
-    public CadastroPacote(List <Pacote> pacotes) {
+    public CadastroPacote(IAtualizarFrame listagem, List<Pacote> pacotes) {
+        this.listagem = listagem;
         this.pacotes = pacotes;
         initComponents();
         this.setResizable(false);
@@ -121,8 +124,9 @@ public class CadastroPacote extends javax.swing.JFrame {
         String nome = this.jTextNome.getText();
         String descricao = this.jTextDescricao.getText();
         float valor = Float.parseFloat(this.jTextValor.getText());
-        
+
         this.pacotes.add(new Pacote(nome, descricao, valor));
+        this.listagem.atualizarFrame();
         this.dispose();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
