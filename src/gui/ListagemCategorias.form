@@ -33,8 +33,6 @@
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jButtonNova" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButtonEditar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonRemover" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonRetornar" min="-2" max="-2" attributes="0"/>
@@ -51,7 +49,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonRetornar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonRemover" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonEditar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonNova" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -92,14 +89,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonRemoverActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButtonEditar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Editar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEditarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonNova">

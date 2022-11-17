@@ -4,6 +4,9 @@
  */
 package gui;
 
+import atividades.Exercicio;
+import atividades.Treino;
+import atividades.TreinoExercicio;
 import java.util.List;
 import operacoes.ListarAlunoProdutos;
 import operacoes.ListarAlunos;
@@ -19,25 +22,31 @@ import vendas.Produto;
  * @author fabri
  */
 public class ListagemAlunos extends javax.swing.JFrame implements IAtualizarFrame {
-
+    private List<Exercicio> exercicios;
     private List<Pessoa> pessoas;
     private List<Pacote> pacotes;
     private List<Medida> medidas;
     private List<Endereco> enderecos;
     private List<Produto> produtos;
     private List<AlunoProdutos> alunoProdutos;
+    private List<Treino> treinos;
+    private List<TreinoExercicio> treinoExercicios;
 
     /**
      * Creates new form ListagemAlunos
      */
     public ListagemAlunos(List<Pessoa> pessoas, List<Pacote> pacotes, List<Medida> medidas, List<Endereco> enderecos,
-            List<Produto> produtos, List<AlunoProdutos> alunoProdutos) {
+            List<Produto> produtos, List<AlunoProdutos> alunoProdutos, 
+            List<Exercicio> exercicios, List<Treino> treinos, List<TreinoExercicio> treinoExercicios) {
+        this.exercicios = exercicios;
         this.pacotes = pacotes;
         this.pessoas = pessoas;
         this.medidas = medidas;
         this.enderecos = enderecos;
         this.produtos = produtos;
         this.alunoProdutos = alunoProdutos;
+        this.treinos = treinos;
+        this.treinoExercicios = treinoExercicios;
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -173,13 +182,15 @@ public class ListagemAlunos extends javax.swing.JFrame implements IAtualizarFram
 
     private void jButtonNovoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoAlunoActionPerformed
         new FichaAluno(this, this.pessoas, this.pacotes, "Novo", null, this.medidas,
-                this.enderecos, this.produtos, this.alunoProdutos).setVisible(true);
+                this.enderecos, this.produtos, this.alunoProdutos,
+                this.exercicios, this.treinos, this.treinoExercicios).setVisible(true);
     }//GEN-LAST:event_jButtonNovoAlunoActionPerformed
 
     private void jButtonEditAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditAlunoActionPerformed
         Pessoa pessoa = this.pessoas.get(jTable1.getSelectedRow());
         new FichaAluno(this, this.pessoas, this.pacotes, "Outras Informações", pessoa, this.medidas,
-                this.enderecos, this.produtos, this.alunoProdutos).setVisible(true);
+                this.enderecos, this.produtos, this.alunoProdutos,
+                this.exercicios, this.treinos, this.treinoExercicios).setVisible(true);
     }//GEN-LAST:event_jButtonEditAlunoActionPerformed
 
     private void jButtonRemoveAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveAlunoActionPerformed

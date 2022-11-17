@@ -5,6 +5,8 @@
 package gui;
 
 import atividades.Exercicio;
+import atividades.Treino;
+import atividades.TreinoExercicio;
 import exception.ErroDeGravacaoException;
 
 import io.Gravador;
@@ -17,6 +19,7 @@ import pessoas.Medida;
 import pessoas.Pessoa;
 import vendas.AlunoProdutos;
 import vendas.Categoria;
+import vendas.Fatura;
 import vendas.Pacote;
 import vendas.Produto;
 
@@ -26,18 +29,22 @@ import vendas.Produto;
  */
 public class Principal extends javax.swing.JFrame {
 
-    List<Categoria> categorias;
-    List<Produto> produtos;
-    List<Pacote> pacotes;
-    List<Exercicio> exercicios;
-    List<Pessoa> pessoas;
-    List<Medida> medidas;
-    List<Endereco> enderecos;
-    List<AlunoProdutos> alunoProdutos;
+    private List<Categoria> categorias;
+    private List<Produto> produtos;
+    private List<Pacote> pacotes;
+    private List<Exercicio> exercicios;
+    private List<Pessoa> pessoas;
+    private List<Medida> medidas;
+    private List<Endereco> enderecos;
+    private List<AlunoProdutos> alunoProdutos;
+    private List<Fatura> faturas;
+    private List<Treino> treinos;
+    private List<TreinoExercicio> treinoExercicios;
 
     public Principal(List<Categoria> categorias, List<Produto> produtos, List<Pacote> pacotes,
             List<Exercicio> exercicios, List<Pessoa> pessoas, List<Medida> medidas,
-            List<Endereco> enderecos, List<AlunoProdutos> alunoProdutos) {
+            List<Endereco> enderecos, List<AlunoProdutos> alunoProdutos,
+            List<Fatura> faturas, List<Treino> treinos, List<TreinoExercicio> treinoExercicios) {
         this.categorias = categorias;
         this.produtos = produtos;
         this.pacotes = pacotes;
@@ -46,6 +53,9 @@ public class Principal extends javax.swing.JFrame {
         this.medidas = medidas;
         this.enderecos = enderecos;
         this.alunoProdutos = alunoProdutos;
+        this.faturas = faturas;
+        this.treinos = treinos;
+        this.treinoExercicios = treinoExercicios;
 
         initComponents();
         this.setResizable(false);
@@ -69,7 +79,7 @@ public class Principal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButtonConta = new javax.swing.JButton();
+        jButtonFaturas = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -132,7 +142,12 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jButtonConta.setText("Conta");
+        jButtonFaturas.setText("Faturas");
+        jButtonFaturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFaturasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -146,7 +161,7 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonConta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonFaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -159,7 +174,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButtonConta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonFaturas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,7 +245,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new ListagemAlunos(this.pessoas, this.pacotes, this.medidas, this.enderecos,
-                this.produtos, this.alunoProdutos).setVisible(true);
+                this.produtos, this.alunoProdutos,
+                this.exercicios, this.treinos, this.treinoExercicios).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -263,6 +279,10 @@ public class Principal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
+    private void jButtonFaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFaturasActionPerformed
+        new ListagemFaturas(this.pessoas, this.faturas, this.alunoProdutos, null).setVisible(true);
+    }//GEN-LAST:event_jButtonFaturasActionPerformed
+
     private void gravarDados() {
         try {
             Gravador.gravarDados(new LeitorGravadorObjetos<List<Categoria>>(), this.categorias, "categorias.txt");
@@ -273,6 +293,9 @@ public class Principal extends javax.swing.JFrame {
             Gravador.gravarDados(new LeitorGravadorObjetos<List<Medida>>(), this.medidas, "medidas.txt");
             Gravador.gravarDados(new LeitorGravadorObjetos<List<Endereco>>(), this.enderecos, "enderecos.txt");
             Gravador.gravarDados(new LeitorGravadorObjetos<List<AlunoProdutos>>(), this.alunoProdutos, "alunoProdutos.txt");
+            Gravador.gravarDados(new LeitorGravadorObjetos<List<Fatura>>(), this.faturas, "faturas.txt");
+            Gravador.gravarDados(new LeitorGravadorObjetos<List<Treino>>(), this.treinos, "treinos.txt");
+            Gravador.gravarDados(new LeitorGravadorObjetos<List<TreinoExercicio>>(), this.treinoExercicios, "treinoExercicios.txt");
             System.out.println("GRAVOU NO ARQUIVO");
         } catch (ErroDeGravacaoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro ao gravar", JOptionPane.ERROR_MESSAGE);
@@ -285,7 +308,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButtonConta;
+    private javax.swing.JButton jButtonFaturas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;

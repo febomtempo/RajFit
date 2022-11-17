@@ -4,8 +4,12 @@
  */
 package gui;
 
+import atividades.Exercicio;
+import atividades.Treino;
+import atividades.TreinoExercicio;
 import java.util.List;
 import operacoes.ListarAlunoProdutos;
+import operacoes.ListarTreinos;
 import pessoas.Aluno;
 import pessoas.Endereco;
 import pessoas.Medida;
@@ -28,14 +32,19 @@ public class FichaAluno extends javax.swing.JFrame {
     private List<Medida> medidas;
     private List<Endereco> enderecos;
     private List<Produto> produtos;
-    private List <AlunoProdutos> alunoProdutos;
+    private List<AlunoProdutos> alunoProdutos;
+    private List<Exercicio> exercicios;
+    private List<Treino> treinos;
+    private List<TreinoExercicio> treinoExercicios;
 
     /**
      * Creates new form FichaAluno
      */
     public FichaAluno(IAtualizarFrame listagem, List<Pessoa> pessoas, List<Pacote> pacotes, String tipo,
             Pessoa pessoa, List<Medida> medidas, List<Endereco> enderecos, List<Produto> produtos,
-            List <AlunoProdutos> alunoProdutos) {
+            List<AlunoProdutos> alunoProdutos, List<Exercicio> exercicios, 
+            List<Treino> treinos, List<TreinoExercicio> treinoExercicios) {
+        this.exercicios = exercicios;
         this.tipo = tipo;
         this.listagem = listagem;
         this.pessoas = pessoas;
@@ -45,6 +54,8 @@ public class FichaAluno extends javax.swing.JFrame {
         this.enderecos = enderecos;
         this.produtos = produtos;
         this.alunoProdutos = alunoProdutos;
+        this.treinos = treinos;
+        this.treinoExercicios = treinoExercicios;
 
         initComponents();
         this.setResizable(false);
@@ -67,8 +78,14 @@ public class FichaAluno extends javax.swing.JFrame {
             jTabbedPane.setEnabledAt(0, false);
             jTabbedPane.setSelectedIndex(1);
         }
-        
-        ListarAlunoProdutos.listar(alunoProdutos, jTable1);
+
+        if (this.pessoa != null) {
+            ListarAlunoProdutos.listar(alunoProdutos, jTable1, this.pessoa);
+        }
+
+        if (this.treinos != null) {
+            ListarTreinos.listar(this.treinos, jTableTreino, this.pessoa);
+        }
 
     }
 
@@ -123,7 +140,7 @@ public class FichaAluno extends javax.swing.JFrame {
         jButtonSalvarMedidas = new javax.swing.JButton();
         jPanelTreino = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableTreino = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
         jButtonRetornarTreino = new javax.swing.JButton();
         jButtonRemoverTreino = new javax.swing.JButton();
@@ -412,7 +429,7 @@ public class FichaAluno extends javax.swing.JFrame {
 
         jTabbedPane.addTab("Medidas", jPanelMedidas);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTreino.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -420,7 +437,7 @@ public class FichaAluno extends javax.swing.JFrame {
                 "Nome", "Dia"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jTableTreino);
 
         jButtonRetornarTreino.setText("Retornar");
         jButtonRetornarTreino.addActionListener(new java.awt.event.ActionListener() {
@@ -430,8 +447,13 @@ public class FichaAluno extends javax.swing.JFrame {
         });
 
         jButtonRemoverTreino.setText("Remover");
+        jButtonRemoverTreino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoverTreinoActionPerformed(evt);
+            }
+        });
 
-        jButtonEditarTreino.setText("Editar");
+        jButtonEditarTreino.setText("Add Exercício");
         jButtonEditarTreino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEditarTreinoActionPerformed(evt);
@@ -680,17 +702,16 @@ public class FichaAluno extends javax.swing.JFrame {
                 .addComponent(jTextQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(68, Short.MAX_VALUE))
             .addGroup(jPanelProdutosLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelProdutosLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonAddProduto)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonRemoverProduto)
                         .addGap(14, 14, 14)
                         .addComponent(jButtonRetornarProduto))
-                    .addGroup(jPanelProdutosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelProdutosLayout.setVerticalGroup(
@@ -733,11 +754,11 @@ public class FichaAluno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNovoTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoTreinoActionPerformed
-        new Treino().setVisible(true);
+        new CadastroTreino(this.listagem, this.treinos, this.pessoa).setVisible(true);
     }//GEN-LAST:event_jButtonNovoTreinoActionPerformed
 
     private void jButtonEditarTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarTreinoActionPerformed
-        new Treino().setVisible(true);
+        new CadastroTreinoExercicios(this.exercicios, this.treinos.get(this.jTableTreino.getSelectedRow()), this.treinoExercicios).setVisible(true);
     }//GEN-LAST:event_jButtonEditarTreinoActionPerformed
 
     private void jButtonRetornarMedidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetornarMedidasActionPerformed
@@ -810,7 +831,7 @@ public class FichaAluno extends javax.swing.JFrame {
     private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
         int quantidade = Integer.parseInt(jTextQtd.getText());
         Produto produto = produtos.get(jComboProduto.getSelectedIndex());
-        
+
         this.alunoProdutos.add(new AlunoProdutos(pessoa, produto, quantidade));
         this.listagem.atualizarFrame();
         this.dispose();
@@ -819,6 +840,11 @@ public class FichaAluno extends javax.swing.JFrame {
     private void jButtonRetornarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetornarProdutoActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonRetornarProdutoActionPerformed
+
+    private void jButtonRemoverTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverTreinoActionPerformed
+        this.treinos.remove(jTableTreino.getSelectedRow());
+        this.listagem.atualizarFrame();
+    }//GEN-LAST:event_jButtonRemoverTreinoActionPerformed
 
     private void carregarPacotes() {
         this.jComboPacotes.removeAllItems();
@@ -890,7 +916,7 @@ public class FichaAluno extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableTreino;
     private javax.swing.JTextField jTextAltura;
     private javax.swing.JTextField jTextBairro;
     private javax.swing.JTextField jTextBicepsDir;
@@ -913,4 +939,5 @@ public class FichaAluno extends javax.swing.JFrame {
     private javax.swing.JTextField jTextQuadril;
     private javax.swing.JTextField jTextRua;
     // End of variables declaration//GEN-END:variables
+
 }

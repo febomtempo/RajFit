@@ -5,6 +5,8 @@
 package rajfit;
 
 import atividades.Exercicio;
+import atividades.Treino;
+import atividades.TreinoExercicio;
 import exception.ErroDeLeituraException;
 import gui.Principal;
 import io.Carregador;
@@ -19,6 +21,7 @@ import pessoas.Medida;
 import pessoas.Pessoa;
 import vendas.AlunoProdutos;
 import vendas.Categoria;
+import vendas.Fatura;
 import vendas.Pacote;
 import vendas.Produto;
 
@@ -42,6 +45,9 @@ public class RajFit {
             List<Medida> medidas = (List<Medida>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Medida>>(), "medidas.txt");
             List<Endereco> enderecos = (List<Endereco>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Endereco>>(), "enderecos.txt");
             List<AlunoProdutos> alunoProdutos = (List<AlunoProdutos>) Carregador.carregarDados(new LeitorGravadorObjetos<List<AlunoProdutos>>(), "alunoProdutos.txt");
+            List<Fatura> faturas = (List<Fatura>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Fatura>>(), "faturas.txt");
+            List<Treino> treinos = (List<Treino>) Carregador.carregarDados(new LeitorGravadorObjetos<List<Treino>>(), "treinos.txt");
+            List<TreinoExercicio> treinoExercicios = (List<TreinoExercicio>) Carregador.carregarDados(new LeitorGravadorObjetos<List<TreinoExercicio>>(), "treinoExercicios.txt");
             if (categorias == null) {
                 categorias = new ArrayList<Categoria>();
                 System.out.println("ARQUIVO categorias NÃO EXISTE, NOVO OBJETO CRIADO!");
@@ -75,7 +81,21 @@ public class RajFit {
                 alunoProdutos = new ArrayList<AlunoProdutos>();
                 System.out.println("ARQUIVO alunoProdutos NÃO EXISTE, NOVO OBJETO CRIADO!");
             }
-            new Principal(categorias, produtos, pacotes, exercicios, pessoas, medidas, enderecos, alunoProdutos).setVisible(true);
+            if (faturas == null) {
+                faturas = new ArrayList<Fatura>();
+                System.out.println("ARQUIVO faturas NÃO EXISTE, NOVO OBJETO CRIADO!");
+            }
+            if (treinos == null) {
+                treinos = new ArrayList<Treino>();
+                System.out.println("ARQUIVO treinos NÃO EXISTE, NOVO OBJETO CRIADO!");
+            }
+            if (treinoExercicios == null) {
+                treinoExercicios = new ArrayList<TreinoExercicio>();
+                System.out.println("ARQUIVO treinoExercicios NÃO EXISTE, NOVO OBJETO CRIADO!");
+            }
+            new Principal(categorias, produtos, pacotes, exercicios, pessoas,
+                    medidas, enderecos, alunoProdutos, faturas,
+                    treinos, treinoExercicios).setVisible(true);
         } catch (ErroDeLeituraException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERRO AO CARREGAR ARQUIVOS!!!", JOptionPane.ERROR_MESSAGE);
         }

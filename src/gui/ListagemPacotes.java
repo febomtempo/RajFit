@@ -42,9 +42,7 @@ public class ListagemPacotes extends javax.swing.JFrame implements IAtualizarFra
         jPanel1 = new javax.swing.JPanel();
         jButtonRetornar = new javax.swing.JButton();
         jButtonRemover = new javax.swing.JButton();
-        jButtonEditar = new javax.swing.JButton();
         jButtonNovo = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("RAJFIT - Pacotes");
@@ -89,13 +87,6 @@ public class ListagemPacotes extends javax.swing.JFrame implements IAtualizarFra
             }
         });
 
-        jButtonEditar.setText("Editar");
-        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEditarActionPerformed(evt);
-            }
-        });
-
         jButtonNovo.setText("Novo");
         jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,13 +99,9 @@ public class ListagemPacotes extends javax.swing.JFrame implements IAtualizarFra
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField1)
-                .addGap(18, 18, 18)
+                .addContainerGap(353, Short.MAX_VALUE)
                 .addComponent(jButtonNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonRemover)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonRetornar)
@@ -127,9 +114,7 @@ public class ListagemPacotes extends javax.swing.JFrame implements IAtualizarFra
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonRetornar)
                     .addComponent(jButtonRemover)
-                    .addComponent(jButtonEditar)
-                    .addComponent(jButtonNovo)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonNovo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -162,11 +147,6 @@ public class ListagemPacotes extends javax.swing.JFrame implements IAtualizarFra
     
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
-    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        new CadastroPacote(this,this.pacotes).setVisible(true);
-       
-    }//GEN-LAST:event_jButtonEditarActionPerformed
-
     private void jButtonRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetornarActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonRetornarActionPerformed
@@ -177,14 +157,12 @@ public class ListagemPacotes extends javax.swing.JFrame implements IAtualizarFra
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonNovo;
     private javax.swing.JButton jButtonRemover;
     private javax.swing.JButton jButtonRetornar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     @Override

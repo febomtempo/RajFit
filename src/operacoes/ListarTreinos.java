@@ -4,28 +4,29 @@
  */
 package operacoes;
 
+import atividades.Treino;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import pessoas.Pessoa;
-import vendas.AlunoProdutos;
+
 
 /**
  *
  * @author Felipe
  */
-public class ListarAlunoProdutos {
-    public static void listar(List<AlunoProdutos> alunoProdutos, JTable tabela, Pessoa pessoa) {
+public class ListarTreinos {
+
+    public static void listar(List<Treino> treinos, JTable tabela, Pessoa pessoa) {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
 
-        for (AlunoProdutos ap : alunoProdutos) {
-            if (ap.getPessoa().equals(pessoa)) {
-                Object[] row = {ap.getProduto().getNome(), ap.getQuantidade(),
-                    ap.getProduto().getValor(), ap.somarTotal()};
+        for (Treino treino : treinos) {
+            if (treino.getAluno().equals(pessoa)) {
+                Object[] row = {treino.getNome(), treino.getDia()};
                 modelo.addRow(row);
             }
 

@@ -7,6 +7,7 @@ package atividades;
 import java.io.Serializable;
 import java.util.UUID;
 import pessoas.Aluno;
+import pessoas.Pessoa;
 
 /**
  *
@@ -17,14 +18,14 @@ public class Treino implements Comparable<Treino>, Serializable {
     private String id;
     private String nome;
     private String dia;
-    private Aluno aluno;
+    private Pessoa pessoa;
 
-    public Treino(int id, String nome, String dia, Aluno aluno) {
+    public Treino(String nome, String dia, Pessoa pessoa) {
         UUID uuid = UUID.randomUUID();
         this.id = uuid.toString();
         this.nome = nome;
         this.dia = dia;
-        this.aluno = aluno;
+        this.pessoa = pessoa;
 
     }
 
@@ -48,16 +49,20 @@ public class Treino implements Comparable<Treino>, Serializable {
         this.dia = dia;
     }
 
-    public Aluno getAluno() {
-        return aluno;
+    public Pessoa getAluno() {
+        return pessoa;
     }
 
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
+    public void setPessoa(Aluno aluno) {
+        this.pessoa = aluno;
     }
 
     @Override
     public int compareTo(Treino o) {
         return this.id.compareTo(o.getId());
+    }
+    
+     public boolean equals(Treino t) {
+        return this.id.equals(t.getId());
     }
 }

@@ -20,15 +20,15 @@ public class TreinoExercicio implements Comparable<TreinoExercicio>, Serializabl
     private int repeticoes;
     private int series;
     private Treino treino;
-    private List<Exercicio> exercicios = new ArrayList<>();
+    private Exercicio exercicio;
 
-    public TreinoExercicio(int id, int repeticoes, int series, Treino treino, ArrayList<Exercicio> exercicios) {
+    public TreinoExercicio(int repeticoes, int series, Treino treino, Exercicio exercicio) {
         UUID uuid = UUID.randomUUID();
         this.id = uuid.toString();
         this.repeticoes = repeticoes;
         this.series = series;
         this.treino = treino;
-        this.exercicios = exercicios;
+        this.exercicio = exercicio;
     }
 
     public String getId() {
@@ -59,13 +59,15 @@ public class TreinoExercicio implements Comparable<TreinoExercicio>, Serializabl
         this.treino = treino;
     }
 
-    public List<Exercicio> getExercicios() {
-        return exercicios;
+    public Exercicio getExercicio() {
+        return exercicio;
     }
 
-    public void setExercicios(List<Exercicio> exercicios) {
-        this.exercicios = exercicios;
+    public void setExercicio(Exercicio exercicio) {
+        this.exercicio = exercicio;
     }
+
+    
 
     @Override
     public int compareTo(TreinoExercicio o) {

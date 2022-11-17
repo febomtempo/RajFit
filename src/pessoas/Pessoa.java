@@ -78,4 +78,8 @@ public abstract class Pessoa implements Comparable <Pessoa>, Serializable {
     public int compareTo(Pessoa o) {
         return this.id.compareTo(o.getId());
     }
+    
+    public boolean equals(Pessoa p) {
+        return this.id.equals(p.getId());
+    }
 }

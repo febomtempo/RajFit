@@ -14,13 +14,14 @@ import pessoas.Pessoa;
  * @author fabri
  */
 public class ListagemFuncionarios extends javax.swing.JFrame implements IAtualizarFrame {
-     private List <Pessoa> pessoas;
-     private List<Endereco> enderecos;
+
+    private List<Pessoa> pessoas;
+    private List<Endereco> enderecos;
 
     /**
      * Creates new form ListagemFuncionarios
      */
-    public ListagemFuncionarios(List <Pessoa> pessoas, List<Endereco> enderecos) {
+    public ListagemFuncionarios(List<Pessoa> pessoas, List<Endereco> enderecos) {
         this.pessoas = pessoas;
         this.enderecos = enderecos;
         initComponents();
@@ -43,9 +44,7 @@ public class ListagemFuncionarios extends javax.swing.JFrame implements IAtualiz
         jPanel1 = new javax.swing.JPanel();
         jButtonRetornar = new javax.swing.JButton();
         jButtonRemover = new javax.swing.JButton();
-        jButtonEdit = new javax.swing.JButton();
         jButtonNovoFunc = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("RAJFIT - Funcionarios");
@@ -84,13 +83,6 @@ public class ListagemFuncionarios extends javax.swing.JFrame implements IAtualiz
             }
         });
 
-        jButtonEdit.setText("Editar");
-        jButtonEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEditActionPerformed(evt);
-            }
-        });
-
         jButtonNovoFunc.setText("Novo");
         jButtonNovoFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,13 +95,9 @@ public class ListagemFuncionarios extends javax.swing.JFrame implements IAtualiz
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonNovoFunc)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonRemover)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonRetornar)
@@ -122,9 +110,7 @@ public class ListagemFuncionarios extends javax.swing.JFrame implements IAtualiz
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonRetornar)
                     .addComponent(jButtonRemover)
-                    .addComponent(jButtonEdit)
-                    .addComponent(jButtonNovoFunc)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonNovoFunc))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -135,7 +121,7 @@ public class ListagemFuncionarios extends javax.swing.JFrame implements IAtualiz
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -156,33 +142,27 @@ public class ListagemFuncionarios extends javax.swing.JFrame implements IAtualiz
         this.dispose();
     }//GEN-LAST:event_jButtonRetornarActionPerformed
 
-    private void jButtonNovoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoFuncActionPerformed
-        new FichaFuncionario(this, this.pessoas, "Novo", null, this.enderecos).setVisible(true);
-    }//GEN-LAST:event_jButtonNovoFuncActionPerformed
-
-    private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
-        Pessoa pessoa = this.pessoas.get(jTable1.getSelectedRow());
-        new FichaFuncionario(this, this.pessoas, "Outras Informações", pessoa, this.enderecos).setVisible(true);
-    }//GEN-LAST:event_jButtonEditActionPerformed
-
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
         this.pessoas.remove(jTable1.getSelectedRow());
         this.atualizarFrame();
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
+    private void jButtonNovoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoFuncActionPerformed
+        new FichaFuncionario(this, this.pessoas, "Novo", null, this.enderecos).setVisible(true);
+        this.atualizarFrame();
+    }//GEN-LAST:event_jButtonNovoFuncActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonEdit;
     private javax.swing.JButton jButtonNovoFunc;
     private javax.swing.JButton jButtonRemover;
     private javax.swing.JButton jButtonRetornar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-   @Override
+    @Override
     public void atualizarFrame() {
         ListarFuncionarios.listar(pessoas, jTable1);
     }

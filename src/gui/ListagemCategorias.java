@@ -44,7 +44,6 @@ public class ListagemCategorias extends javax.swing.JFrame implements IAtualizar
         jTable1 = new javax.swing.JTable();
         jButtonRetornar = new javax.swing.JButton();
         jButtonRemover = new javax.swing.JButton();
-        jButtonEditar = new javax.swing.JButton();
         jButtonNova = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -74,13 +73,6 @@ public class ListagemCategorias extends javax.swing.JFrame implements IAtualizar
             }
         });
 
-        jButtonEditar.setText("Editar");
-        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEditarActionPerformed(evt);
-            }
-        });
-
         jButtonNova.setText("Nova");
         jButtonNova.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,8 +92,6 @@ public class ListagemCategorias extends javax.swing.JFrame implements IAtualizar
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonNova)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonRemover)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonRetornar)
@@ -116,7 +106,6 @@ public class ListagemCategorias extends javax.swing.JFrame implements IAtualizar
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonRetornar)
                     .addComponent(jButtonRemover)
-                    .addComponent(jButtonEditar)
                     .addComponent(jButtonNova))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -133,11 +122,6 @@ public class ListagemCategorias extends javax.swing.JFrame implements IAtualizar
         
     }//GEN-LAST:event_jButtonNovaActionPerformed
 
-    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        new CadastroCategoria(this, this.categorias).setVisible(true);
-        
-    }//GEN-LAST:event_jButtonEditarActionPerformed
-
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
         this.categorias.remove(jTable1.getSelectedRow());
         this.atualizarFrame();
@@ -145,7 +129,6 @@ public class ListagemCategorias extends javax.swing.JFrame implements IAtualizar
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonNova;
     private javax.swing.JButton jButtonRemover;
     private javax.swing.JButton jButtonRetornar;

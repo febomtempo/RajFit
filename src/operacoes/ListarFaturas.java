@@ -7,28 +7,35 @@ package operacoes;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import pessoas.Aluno;
 import pessoas.Pessoa;
 import vendas.AlunoProdutos;
+import vendas.Fatura;
 
 /**
  *
  * @author Felipe
  */
-public class ListarAlunoProdutos {
-    public static void listar(List<AlunoProdutos> alunoProdutos, JTable tabela, Pessoa pessoa) {
+public class ListarFaturas {
+
+    public static void listar(List<Fatura> faturas, JTable tabela, Pessoa pessoa) {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
 
-        for (AlunoProdutos ap : alunoProdutos) {
-            if (ap.getPessoa().equals(pessoa)) {
-                Object[] row = {ap.getProduto().getNome(), ap.getQuantidade(),
-                    ap.getProduto().getValor(), ap.somarTotal()};
-                modelo.addRow(row);
+        for (Fatura fatura : faturas) {
+            if (fatura.getPessoa() instanceof Aluno) {
+                if (fatura.getPessoa().equals(pessoa)) {
+                    Object[] row = {fatura.getPessoa().getNomeCompleto(), fatura.totalFatura(pessoa),
+                        fatura.getData()};
+                    modelo.addRow(row);
+                }
+
             }
 
         }
+
     }
 }

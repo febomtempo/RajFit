@@ -20,13 +20,15 @@ public class Fatura implements Comparable<Fatura>, Serializable {
     private LocalDate data;
     private String statusPagamento;
     private List<AlunoProdutos> alunoProdutos;
+    private Pessoa pessoa;
 
-    public Fatura(String statusPagamento, List<AlunoProdutos> alunoProdutos) {
+    public Fatura( List<AlunoProdutos> alunoProdutos, Pessoa pessoa) {
         UUID uuid = UUID.randomUUID();
         this.id = uuid.toString();
         this.data = LocalDate.now();
-        this.statusPagamento = statusPagamento;
+        this.statusPagamento = "Em Aberto";
         this.alunoProdutos = alunoProdutos;
+        this.pessoa = pessoa;
     }
 
     public String getId() {
@@ -55,6 +57,14 @@ public class Fatura implements Comparable<Fatura>, Serializable {
 
     public void setAlunoProdutos(List<AlunoProdutos> alunoProdutos) {
         this.alunoProdutos = alunoProdutos;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
 
