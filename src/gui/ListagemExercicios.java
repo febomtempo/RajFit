@@ -12,20 +12,20 @@ import operacoes.ListarExercicios;
  *
  * @author fabri
  */
-public class ListagemExercicios extends javax.swing.JFrame implements IAtualizarFrame{
-    
-    List <Exercicio> exercicios;
+public class ListagemExercicios extends javax.swing.JFrame implements IAtualizarFrame {
+
+    private List<Exercicio> exercicios;
 
     /**
      * Creates new form ListagemExercicios
      */
-    public ListagemExercicios(List <Exercicio> exercicios) {
+    public ListagemExercicios(List<Exercicio> exercicios) {
         this.exercicios = exercicios;
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        
-        if(exercicios != null){
+
+        if (exercicios != null) {
             ListarExercicios.listar(exercicios, jTable1);
         }
     }

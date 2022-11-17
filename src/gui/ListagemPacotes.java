@@ -13,16 +13,18 @@ import vendas.Pacote;
  * @author fabri
  */
 public class ListagemPacotes extends javax.swing.JFrame implements IAtualizarFrame {
-    List <Pacote> pacotes;
+
+    private List<Pacote> pacotes;
+
     /**
      * Creates new form ListagemPacotes
      */
-    public ListagemPacotes(List <Pacote> pacotes) {
+    public ListagemPacotes(List<Pacote> pacotes) {
         this.pacotes = pacotes;
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        
+
         if (pacotes != null) {
             ListarPacotes.listar(this.pacotes, jTable1);
         }
@@ -144,7 +146,7 @@ public class ListagemPacotes extends javax.swing.JFrame implements IAtualizarFra
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
         new CadastroPacote(this, this.pacotes).setVisible(true);
-    
+
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetornarActionPerformed

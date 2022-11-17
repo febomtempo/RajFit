@@ -13,7 +13,7 @@ import vendas.Categoria;
  */
 public class CadastroCategoria extends javax.swing.JFrame {
     private IAtualizarFrame listagem;
-    List <Categoria> categorias;
+    private List <Categoria> categorias;
     /**
      * Creates new form CadastroCategoria
      */

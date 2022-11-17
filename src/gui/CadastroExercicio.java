@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class CadastroExercicio extends javax.swing.JFrame {
     private IAtualizarFrame listagem;
-    List<Exercicio> exercicios;
+    private List<Exercicio> exercicios;
 
     /**
      * Creates new form CadastroExercicio

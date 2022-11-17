@@ -14,7 +14,7 @@ import vendas.Pacote;
 public class CadastroPacote extends javax.swing.JFrame {
 
     private IAtualizarFrame listagem;
-    List<Pacote> pacotes;
+    private List<Pacote> pacotes;
 
     /**
      * Creates new form CadastroPacote
